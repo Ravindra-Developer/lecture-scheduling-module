@@ -1,0 +1,21 @@
+<section>
+    <div>
+        <div>
+            <form [formGroup]="loginForm">
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" pInputText formControlName="email">
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" pInputText formControlName="password">
+                </div>
+                <div>
+                    <div>
+                        <p-button label="Log In" (click)="login()" [disabled]="loginForm.invalid"></p-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
