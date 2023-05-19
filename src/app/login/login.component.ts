@@ -22,7 +22,7 @@ export class LoginComponent {
   login() {
     this.global.post(this.global.basepath + '/admin/login', this.loginForm.value).subscribe((res: any) => {
       if (res.success) {
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/schedule-lecture'])
       }
     })
   }

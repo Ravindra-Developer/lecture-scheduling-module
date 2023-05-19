@@ -1,14 +1,96 @@
-<p>schedule-lecture works!</p>
-<div>
-    <div>
-        <form>
-            <div>
-                <p-calendar placeholder="Select Date" [showIcon]="true"></p-calendar>
+<section class="add-course">
+    <div class="container">
+        <div class="w-100">
+            <p-table [value]="scheduledLectures" tyleClass="p-datatable-gridlines">
+                <ng-template pTemplate="caption">
+
+                    <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
+                        Schedule Lecture
+                    </button>
+
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Sr No</th>
+                        <th>Date</th>
+                        <th>Course</th>
+                        <th>Batch</th>
+                        <th>Instructor</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data let-i=rowIndex>
+                    <tr>
+                        <td>{{i + 1}}</td>
+                        <td>{{data.lectureDate | date:'dd/MM/yyyy'}}</td>
+                        <td>{{data.courseName}}</td>
+                        <td>{{data.batch}}</td>
+                        <td>{{data.InstructorName}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</section>
+
+<!-- Add Course Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Course</h1>
+
             </div>
-            <div>
-                <p-dropdown [options]="cities" placeholder="Select Instructor"
-                    optionLabel="name"></p-dropdown>
+            <div class="modal-body">
+                <div>
+                    <form [formGroup]="scheduleLectureForm">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Date:</label>
+                            <input type="date" class="form-control" id="exampleInputEmail1"
+                                formControlName="lectureDate" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Select Course:</label>
+                            <select class="form-select" formControlName="course_id" aria-label="Default select example"
+                                (change)="getBatches()">
+                                <option value="">----- Select Course -----</option>
+                                <option value="{{data.course_id}}" *ngFor="let data of courses">{{data.courseName}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Select Course:</label>
+                            <select class="form-select" formControlName="batch" aria-label="Default select example">
+                                <option value="">----- Select Batch -----</option>
+                                <option value="{{data}}" *ngFor="let data of BatchArr">{{data}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Select Instructor:</label>
+                            <select class="form-select" formControlName="InstructorId"
+                                aria-label="Default select example">
+                                <option value="">----- Select Instructor -----</option>
+                                <option value="{{data?.user_id}}" *ngFor="let data of AllInstructors">
+                                    {{data.InstructorName}}</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
+            <div class="modal-footer">
+                <div class="col">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary mx-2" [disabled]="scheduleLectureForm.invalid"
+                            data-bs-dismiss="modal" (click)="scheduledLecture()">Submit</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

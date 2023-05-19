@@ -1,1 +1,72 @@
-<p>add-instructor works!</p>
+<section class="add-course">
+    <div class="container">
+        <div class="w-100">
+            <p-table [value]="AllInstructors" tyleClass="p-datatable-gridlines">
+                <ng-template pTemplate="caption">
+
+                    <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
+                        Add Instructor
+                    </button>
+
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Sr No</th>
+                        <th>Email</th>
+                        <th>Instrctor Name</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data let-i=rowIndex>
+                    <tr>
+                        <td>{{i + 1}}</td>
+                        <td>{{data.email}}</td>
+                        <td>{{data.InstructorName}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</section>
+
+<!-- Add Instructor Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Instructor</h1>
+
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form [formGroup]="addInstructorForm">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email:</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" formControlName="email"
+                                aria-describedby="emailHelp" placeholder="Enter Email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Instructror Name:</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1"
+                                placeholder="Enter Instructor Name" formControlName="InstructorName"
+                                aria-describedby="emailHelp">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary mx-2" (click)="addInstructor()"
+                            [disabled]="addInstructorForm.invalid" data-bs-dismiss="modal">Submit</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

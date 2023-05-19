@@ -12,7 +12,6 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddCourseComponent } from './add-course/add-course.component';
 import { AddInstructorComponent } from './add-instructor/add-instructor.component';
 import { HeaderComponent } from './header/header.component';
@@ -25,7 +24,6 @@ import { TableModule } from 'primeng/table';
     LoginComponent,
     ScheduleLectureComponent,
     SideBarComponent,
-    DashboardComponent,
     AddCourseComponent,
     AddInstructorComponent,
     HeaderComponent

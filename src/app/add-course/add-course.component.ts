@@ -16,24 +16,23 @@ export class AddCourseComponent {
   @ViewChild('imgInput')
   imgInputVariable!: ElementRef;
   imageExtensionsArray: any = ['apng', 'jpg', 'avif', 'gif', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png', 'svg', 'webp']
-  file: any;
 
   constructor(private global: GlobalService, private fb: FormBuilder) { }
   addCourseForm = this.fb.group({
     courseName: ["", Validators.required],
     level: ["", Validators.required],
-    Description: ["", Validators.required]
+    Description: ["", Validators.required],
+    Image: ["", Validators.required]
   })
-
+  batchName: any = ""
   courses: any = []
+  course_id: any = ''
   ngOnInit() {
     this.getAllCourses()
   }
 
   getAllCourses() {
     this.global.get(this.global.basepath + '/admin/getAllCourses').subscribe((res: any) => {
-      console.log(res);
-      
       this.courses = res.data
     })
   }
@@ -43,8 +42,12 @@ export class AddCourseComponent {
     console.log(file);
     let file_extension = file.name.split('.').pop();
     if (this.imageExtensionsArray.includes(file_extension)) {
-      this.file = file
-      console.log(this.file);
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        let file: any = reader.result
+        this.addCourseForm.controls['Image'].setValue(file);
+      };
     }
     else {
       this.imgInputVariable.nativeElement.value = '';
@@ -52,10 +55,21 @@ export class AddCourseComponent {
   }
 
   addCourse() {
-    console.log(this.addCourseForm.value);
+    this.global.post(this.global.basepath + '/admin/addCourse', this.addCourseForm.value).subscribe((res: any) => {
+      if (res.success) {
+        this.addCourseForm.reset()
+        this.getAllCourses()
+      }
+    })
+  }
 
-    let formData = new FormData()
-    formData.append('courseName', String(this.addCourseForm.controls['courseName'].value))
+  addBatch() {
+    console.log(this.course_id, this.batchName);
+    this.global.post(this.global.basepath + '/admin/addBatchToCourse', { course_id: this.course_id, batchName: this.batchName }).subscribe((res:any)=>{
+      if (res.success) {
+        this.getAllCourses()
+      }
+    })
 
   }
 }

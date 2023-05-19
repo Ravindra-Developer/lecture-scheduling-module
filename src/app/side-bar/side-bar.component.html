@@ -1,23 +1,24 @@
-<section>
-    <div>
-        <div>
-            <ul>
-                <li (click)="navigateTo('dashboard')">
-                    Dashboard
-                </li>
-                <li (click)="navigateTo('add-course')">
-                    Add Course
-                </li>
-                <li (click)="navigateTo('add-instructor')">
-                    Add Instructor
-                </li>
-                <li (click)="navigateTo('schedule-lecture')">
-                    Schedule Lecture
-                </li>
-            </ul>
+<section class="sidebar">
+    <div class="container">
+        <div class="sidebar">
+            <div class="profile text-center mb-4 pt-4">
+                <img src="assets/user-profile-icon.png" class="img-fluid w-25 m-2" alt="">
+                <h5>Admin</h5>
+            </div>
+            <div class="navigation">
+                <ul>
+                    <li (click)="navigatesTo('schedule-lecture')"
+                        [ngClass]="activeTab === 'schedule-lecture'?'active':''">
+                        Schedule Lecture
+                    </li>
+                    <li (click)="navigatesTo('add-course')" [ngClass]="activeTab === 'add-course'?'active':''">
+                        Add Course
+                    </li>
+                    <li (click)="navigatesTo('add-instructor')" [ngClass]="activeTab === 'add-instructor'?'active':''">
+                        Add Instructor
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
-
-  
-  

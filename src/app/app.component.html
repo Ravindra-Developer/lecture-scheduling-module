@@ -1,6 +1,23 @@
-<div *ngIf="sideBar()">
+<!-- <div *ngIf="sideBar()">
     <app-header></app-header>
     <app-side-bar></app-side-bar>
 </div>
 
-<router-outlet></router-outlet>
+<router-outlet></router-outlet> -->
+
+
+<div class="container-fluid page">
+    <div class="row">
+        <div class="col-12 p-0">
+            <app-header *ngIf="sideBar()"></app-header>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2 p-0" *ngIf="sideBar()">
+            <app-side-bar></app-side-bar>
+        </div>
+        <div class="col-10 p-0">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

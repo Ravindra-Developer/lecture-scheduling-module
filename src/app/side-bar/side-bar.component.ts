@@ -9,8 +9,15 @@ import { Router } from '@angular/router';
 })
 export class SideBarComponent {
   constructor(public global: GlobalService, private router: Router) { }
-  
-  navigateTo(val: any) {
+  activeTab: any = 'schedule-lecture';
+
+  ngOnInit() {
+    this.activeTab = sessionStorage.getItem('activeTab')
+  }
+
+  navigatesTo(val: any) {
+    this.activeTab = val
+    sessionStorage.setItem('activeTab', val)
     this.router.navigate(['/' + val])
   }
 }
