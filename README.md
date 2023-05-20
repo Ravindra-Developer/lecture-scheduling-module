@@ -4,11 +4,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 This is the frontend of the app
 
-## lecture schedule app
+# lecture schedule app
 
 website Link: https://lectureschedule.netlify.app
 
-## Routes
+# Routes
 
 login: https://lectureschedule.netlify.app/login
 schedule-lecture: https://lectureschedule.netlify.app/schedule-lecture
