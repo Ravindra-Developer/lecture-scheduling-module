@@ -72,10 +72,10 @@ export class AddCourseComponent {
   }
 
   addBatch() {
-    console.log(this.course_id, this.batchName);
     this.global.post(this.global.basepath + '/admin/addBatchToCourse', { course_id: this.course_id, batchName: this.batchName }).subscribe((res: any) => {
       if (res.success) {
         this.getAllCourses()
+        this.batchName = ""
         this.messageService.clear()
         this.messageService.add({ severity: 'success', summary: 'Batch added successfully' });
       }
@@ -83,6 +83,11 @@ export class AddCourseComponent {
       this.messageService.clear()
       this.messageService.add({ severity: 'error', summary: 'Internal server error' });
     })
+  }
 
+  closeModal(){
+    this.addCourseForm.reset()
+    this.addCourseForm.controls['level'].setValue('')
+    this.batchName = ""
   }
 }

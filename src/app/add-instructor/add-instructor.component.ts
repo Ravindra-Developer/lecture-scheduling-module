@@ -25,9 +25,7 @@ export class AddInstructorComponent {
     email: ["", Validators.required],
     InstructorName: ["", Validators.required],
   })
-  batchName: any = ""
   courses: any = []
-  course_id: any = ''
   ngOnInit() {
     this.getAllInstructors()
   }
@@ -39,7 +37,6 @@ export class AddInstructorComponent {
   }
 
   addInstructor() {
-    console.log(this.course_id, this.batchName);
     this.global.post(this.global.basepath + '/admin/addInstructor', this.addInstructorForm.value).subscribe((res: any) => {
       if (res.success) {
         this.addInstructorForm.reset()
@@ -51,6 +48,9 @@ export class AddInstructorComponent {
       this.messageService.clear()
       this.messageService.add({ severity: 'error', summary: 'Internal Server errro' });
     })
+  }
 
+  closeModal(){
+    this.addInstructorForm.reset()
   }
 }
