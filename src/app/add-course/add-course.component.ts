@@ -60,6 +60,7 @@ export class AddCourseComponent {
     this.global.post(this.global.basepath + '/admin/addCourse', this.addCourseForm.value).subscribe((res: any) => {
       if (res.success) {
         this.addCourseForm.reset()
+        this.addCourseForm.controls['level'].setValue('')
         this.getAllCourses()
         this.messageService.clear()
         this.messageService.add({ severity: 'success', summary: 'Course Added Successfully' });
