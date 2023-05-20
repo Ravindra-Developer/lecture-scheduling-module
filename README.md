@@ -2,6 +2,8 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.1.
 
+This is the frontend of the app
+
 ## lecture schedule app
 
 website Link: https://lectureschedule.netlify.app
