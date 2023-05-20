@@ -1,11 +1,13 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { GlobalService } from '../global.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
-  styleUrls: ['./add-course.component.scss']
+  styleUrls: ['./add-course.component.scss'],
+  providers: [MessageService]
 })
 export class AddCourseComponent {
   levels: any = [
@@ -17,7 +19,7 @@ export class AddCourseComponent {
   imgInputVariable!: ElementRef;
   imageExtensionsArray: any = ['apng', 'jpg', 'avif', 'gif', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png', 'svg', 'webp']
 
-  constructor(private global: GlobalService, private fb: FormBuilder) { }
+  constructor(private global: GlobalService, private fb: FormBuilder, private messageService: MessageService) { }
   addCourseForm = this.fb.group({
     courseName: ["", Validators.required],
     level: ["", Validators.required],
@@ -59,16 +61,26 @@ export class AddCourseComponent {
       if (res.success) {
         this.addCourseForm.reset()
         this.getAllCourses()
+        this.messageService.clear()
+        this.messageService.add({ severity: 'success', summary: 'Course Added Successfully' });
       }
+    }, (err: any) => {
+      this.messageService.clear()
+      this.messageService.add({ severity: 'error', summary: 'Internal server error' });
     })
   }
 
   addBatch() {
     console.log(this.course_id, this.batchName);
-    this.global.post(this.global.basepath + '/admin/addBatchToCourse', { course_id: this.course_id, batchName: this.batchName }).subscribe((res:any)=>{
+    this.global.post(this.global.basepath + '/admin/addBatchToCourse', { course_id: this.course_id, batchName: this.batchName }).subscribe((res: any) => {
       if (res.success) {
         this.getAllCourses()
+        this.messageService.clear()
+        this.messageService.add({ severity: 'success', summary: 'Batch added successfully' });
       }
+    }, (err: any) => {
+      this.messageService.clear()
+      this.messageService.add({ severity: 'error', summary: 'Internal server error' });
     })
 
   }

@@ -1,11 +1,13 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { GlobalService } from '../global.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-instructor',
   templateUrl: './add-instructor.component.html',
-  styleUrls: ['./add-instructor.component.scss']
+  styleUrls: ['./add-instructor.component.scss'],
+  providers: [MessageService]
 })
 export class AddInstructorComponent {
   levels: any = [
@@ -18,7 +20,7 @@ export class AddInstructorComponent {
   imageExtensionsArray: any = ['apng', 'jpg', 'avif', 'gif', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png', 'svg', 'webp']
   AllInstructors: any;
 
-  constructor(private global: GlobalService, private fb: FormBuilder) { }
+  constructor(private global: GlobalService, private fb: FormBuilder, private messageService: MessageService) { }
   addInstructorForm = this.fb.group({
     email: ["", Validators.required],
     InstructorName: ["", Validators.required],
@@ -42,7 +44,12 @@ export class AddInstructorComponent {
       if (res.success) {
         this.addInstructorForm.reset()
         this.getAllInstructors()
+        this.messageService.clear()
+        this.messageService.add({ severity: 'success', summary: 'Instructor Added Successfully' });
       }
+    }, (err: any) => {
+      this.messageService.clear()
+      this.messageService.add({ severity: 'error', summary: 'Internal Server errro' });
     })
 
   }

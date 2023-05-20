@@ -8,15 +8,13 @@ import { LoginComponent } from './login/login.component';
 import { ScheduleLectureComponent } from './schedule-lecture/schedule-lecture.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SideBarComponent } from './side-bar/side-bar.component';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
 import { AddCourseComponent } from './add-course/add-course.component';
 import { AddInstructorComponent } from './add-instructor/add-instructor.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -34,12 +32,10 @@ import { TableModule } from 'primeng/table';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    DropdownModule,
-    InputTextModule,
     ButtonModule,
-    CalendarModule,
     BrowserAnimationsModule,
-    TableModule
+    TableModule,
+    ToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]

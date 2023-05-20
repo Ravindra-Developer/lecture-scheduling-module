@@ -12,7 +12,7 @@ export class SideBarComponent {
   activeTab: any = 'schedule-lecture';
 
   ngOnInit() {
-    this.activeTab = sessionStorage.getItem('activeTab')
+    this.activeTab = sessionStorage.getItem('activeTab')?sessionStorage.getItem('activeTab'):'schedule-lecture'
   }
 
   navigatesTo(val: any) {

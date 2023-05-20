@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   constructor(private router: Router) { }
   logOut() {
+    sessionStorage.clear()
     this.router.navigate(['/login'])
   }
 }

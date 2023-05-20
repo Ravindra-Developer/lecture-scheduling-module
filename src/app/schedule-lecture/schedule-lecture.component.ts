@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { GlobalService } from '../global.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-schedule-lecture',
   templateUrl: './schedule-lecture.component.html',
-  styleUrls: ['./schedule-lecture.component.scss']
+  styleUrls: ['./schedule-lecture.component.scss'],
+  providers:[MessageService]
 })
 export class ScheduleLectureComponent {
   scheduledLectures: any = []
@@ -13,7 +15,7 @@ export class ScheduleLectureComponent {
   AllInstructors: any = [];
   BatchArr: any = []
 
-  constructor(public global: GlobalService, private fb: FormBuilder) { }
+  constructor(public global: GlobalService, private fb: FormBuilder,private messageService: MessageService) { }
   scheduleLectureForm = this.fb.group({
     lectureDate: ['', Validators.required],
     course_id: ['', Validators.required],
@@ -34,7 +36,6 @@ export class ScheduleLectureComponent {
           this.scheduleLectureForm.controls['batch'].setValidators([Validators.required])
           this.scheduleLectureForm.controls['batch'].updateValueAndValidity()
         }
-        
       }
     });
   }
@@ -59,15 +60,26 @@ export class ScheduleLectureComponent {
   }
 
   scheduledLecture() {
-    console.log(this.scheduleLectureForm.value);
-    this.global.post(this.global.basepath + '/admin/ScheduleLecture', this.scheduleLectureForm.value).subscribe((res: any) => {
+    let passdata = {
+      lectureDate: this.scheduleLectureForm.controls['lectureDate'].value,
+      course_id: this.scheduleLectureForm.controls['course_id'].value,
+      batch: this.scheduleLectureForm.controls['batch'].value,
+      InstructorId: this.scheduleLectureForm.controls['InstructorId'].value,
+      admin_email: sessionStorage.getItem('admin_email')
+    }
+    this.global.post(this.global.basepath + '/admin/ScheduleLecture', passdata).subscribe((res: any) => {
       if (res.success) {
         this.scheduleLectureForm.reset()
+        this.scheduleLectureForm.controls['InstructorId'].setValue('')
+        this.scheduleLectureForm.controls["batch"].setValue('')
+        this.scheduleLectureForm.controls["course_id"].setValue('')
         this.getAllScheduledLecture()
+        this.messageService.clear()
+        this.messageService.add({ severity: 'success', summary: 'Lecture Scheduled Successfully'});
       }
     }, (err: any) => {
-      console.log(err);
-
+      this.messageService.clear()
+      this.messageService.add({ severity: 'error', summary: 'Internal server error'});
     })
 
   }
