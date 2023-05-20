@@ -8,7 +8,8 @@ export class GlobalService {
 
   constructor(private http: HttpClient) { }
 
-  basepath: any = "http://localhost:4000"
+  // basepath: any = "http://localhost:4000"
+  basepath: any = "https://lecture-schedule-server.onrender.com"
 
   post(url: any, req: any) {
     return this.http.post(url, req)
