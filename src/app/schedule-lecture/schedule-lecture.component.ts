@@ -80,8 +80,10 @@ export class ScheduleLectureComponent {
         this.messageService.add({ severity: 'success', summary: 'Lecture Scheduled Successfully' });
       }
     }, (err: any) => {
+      console.log(err);
+      
       this.messageService.clear()
-      this.messageService.add({ severity: 'error', summary: 'Internal server error' });
+      this.messageService.add({ severity: 'error', summary: err.error.msg });
     })
   }
 
